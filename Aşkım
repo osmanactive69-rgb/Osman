@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonsuz Aşkımız ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --hot-pink: #ff4d6d;
+            --dark-pink: #c9184a;
+            --white: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--soft-pink);
+            color: var(--dark-pink);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Arka Plan Hareketli Kalpler */
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.6;
+        }
+
+        /* GİRİŞ EKRANI */
+        #entrance {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; background: var(--soft-pink);
+            position: fixed; width: 100%; z-index: 9999; transition: 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .heart-loader {
+            font-size: 50px; animation: beat 1s infinite; margin-bottom: 20px;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .input-box {
+            background: white; border: 2px solid var(--hot-pink);
+            padding: 15px; border-radius: 30px; outline: none;
+            width: 250px; text-align: center; font-size: 18px; color: var(--dark-pink);
+        }
+
+        .btn-enter {
+            margin-top: 20px; padding: 12px 40px; background: var(--hot-pink);
+            color: white; border: none; border-radius: 50px; cursor: pointer;
+            font-weight: 600; transition: 0.3s;
+        }
+        .btn-enter:hover { background: var(--dark-pink); transform: translateY(-3px); }
+
+        /* BÖLÜMLER */
+        section {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 80px 10%; text-align: center;
+        }
+
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1.2s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .main-title {
+            font-family: 'Dancing Script', cursive; font-size: clamp(40px, 8vw, 80px);
+            color: var(--hot-pink); margin-bottom: 20px;
+        }
+
+        /* FOTOĞRAF GALERİSİ (POLAROID) */
+        .gallery {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 50px;
+        }
+
+        .polaroid {
+            background: white; padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(var(--r)); transition: 0.4s;
+            cursor: pointer;
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
+
+        .polaroid img {
+            width: 220px; height: 220px; object-fit: cover; border: 1px solid #eee;
+        }
+
+        .polaroid span {
+            display: block; margin-top: 15px; font-family: 'Playfair Display', serif;
+            font-style: italic; color: #555;
+        }
+
+        /* DAKTYLO */
+        #typewriter {
+            font-size: 24px; line-height: 1.6; max-width: 700px;
+            font-family: 'Playfair Display', serif; font-style: italic;
+        }
+
+        /* MÜZİK KONTROL */
+        .music-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; z-index: 100;
+        }
+
+        /* SON YEMİN BUTONU */
+        .promise-circle {
+            width: 200px; height: 200px; border-radius: 50%;
+            background: var(--hot-pink); color: white;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; font-family: 'Dancing Script'; font-size: 30px;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.4); transition: 0.5s;
+        }
+        .promise-circle:hover { transform: scale(1.1); background: var(--dark-pink); }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="entrance">
+        <div class="heart-loader">❤️</div>
+        <h1 style="font-family: 'Dancing Script'; font-size: 40px; color: var(--hot-pink);">Sadece İkimiz İçin...</h1>
+        <p>Tanıştığımız günün tarihi? (Örn: 14.02.2024)</p>
+        <div style="margin-top: 20px;">
+            <input type="text" id="pass" class="input-box" placeholder="GG.AA.YYYY">
+            <br>
+            <button class="btn-enter" onclick="startStory()">Kilidi Aç</button>
+        </div>
+    </div>
+
+    <div id="main-content" style="display:none;">
+        
+        <section class="reveal">
+            <h1 class="main-title">İyi ki Doğdun Hayatıma...</h1>
+            <p style="font-size: 20px; max-width: 600px;">
+                Seninle başlayan bu serüven, hayatımın en güzel masalı oldu. 
+                Sana olan aşkımı kelimelere dökmek imkansız ama bu küçük sayfa 
+                kalbimin senin için nasıl çarptığının bir kanıtı olsun.
+            </p>
+        </section>
+
+        <section class="reveal">
+            <h2 class="main-title">En Güzel Anlarımız</h2>
+            <div class="gallery">
+                <div class="polaroid" style="--r: -3deg">
+                    <img src="https://via.placeholder.com/220x220?text=Siz1" alt="Biz">
+                    <span>İlk Kahvemiz ☕</span>
+                </div>
+                <div class="polaroid" style="--r: 2deg">
+                    <img src="https://via.placeholder.com/220x220?text=Siz2" alt="Biz">
+                    <span>En Mutlu Gün ✨</span>
+                </div>
+                <div class="polaroid" style="--r: -1deg">
+                    <img src="https://via.placeholder.com/220x220?text=Siz3" alt="Biz">
+                    <span>Gülüşün Dünyam ❤️</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2 class="main-title">Sana Söylemek İstediklerim</h2>
+            <div id="typewriter"></div>
+        </section>
+
+        <section class="reveal">
+            <h2 class="main-title">Bir Sözümüz Olsun</h2>
+            <div class="promise-circle" onclick="finalSurprise()">Söz Ver...</div>
+            <p id="final-text" style="display:none; margin-top: 30px; font-size: 24px; font-weight: 600;">
+                Sonsuza dek, her ne olursa olsun yan yana... ❤️
+            </p>
+        </section>
+
+    </div>
+
+    <div class="music-btn" onclick="toggleMusic()">🎵</div>
+    <audio id="loveSong" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ARKA PLAN KALPLER
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let hearts = [];
+
+        function createHeart() {
+            return {
+                x: Math.random() * canvas.width,
+                y: canvas.height + 10,
+                size: Math.random() * 15 + 5,
+                speed: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.2
+            };
+        }
+
+        function drawHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff4d6d';
+            hearts.forEach((h, i) => {
+                ctx.globalAlpha = h.opacity;
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, h.size, 0, Math.PI * 2);
+                ctx.fill();
+                h.y -= h.speed;
+                if (h.y < -20) hearts[i] = createHeart();
+            });
+            requestAnimationFrame(drawHearts);
+        }
+
+        for(let i=0; i<50; i++) hearts.push(createHeart());
+        drawHearts();
+
+        // ŞİFRE VE BAŞLATMA
+        function startStory() {
+            const pass = document.getElementById('pass').value;
+            if(pass !== "") { // Burayı istersen özel bir tarihle (örn: 14.02.2024) değiştirebilirsin
+                document.getElementById('entrance').style.transform = "translateY(-100%)";
+                document.getElementById('main-content').style.display = "block";
+                document.getElementById('loveSong').play();
+                initReveal();
+                startTypewriter();
+            } else {
+                alert("Lütfen o özel günü buraya yaz sevgilim...");
+            }
+        }
+
+        // DAKTYLO
+        const msg = "Seninle geçen her dakika, ömrüme ömür katıyor. Fotoğraflara sığdıramadığımız o kadar çok anımız var ki... Gözlerine baktığımda gördüğüm o gelecek, hayatımda sahip olduğum en büyük hazine. Seni her şeyden çok seviyorum.";
+        let charIndex = 0;
+        function startTypewriter() {
+            if (charIndex < msg.length) {
+                document.getElementById("typewriter").innerHTML += msg.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTypewriter, 50);
+            }
+        }
+
+        // SCROLL REVEAL
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(section => observer.observe(section));
+        }
+
+        // MÜZİK
+        function toggleMusic() {
+            const song = document.getElementById('loveSong');
+            song.paused ? song.play() : song.pause();
+        }
+
+        // SON SÜRPRİZ
+        function finalSurprise() {
+            document.getElementById('final-text').style.display = 'block';
+            for(let i=0; i<50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    heart.style.transition = '4s';
+                    heart.style.zIndex = '1000';
+                    document.body.appendChild(heart);
+                    setTimeout(() => {
+                        heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
+                        heart.style.opacity = '0';
+                    }, 100);
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
